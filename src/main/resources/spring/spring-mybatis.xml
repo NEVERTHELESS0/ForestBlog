@@ -39,12 +39,15 @@
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
         <property name="minEvictableIdleTimeMillis" value="300000" />
 
+        <!--用来检测连接是否有效的sql，要求是一个查询语句，
+        常用select 'x'。如果validationQuery为null，
+        testOnBorrow、testOnReturn、testWhileIdle都不会起作用。-->
         <property name="validationQuery" value="SELECT 'x'" />
         <property name="testWhileIdle" value="true" />
         <property name="testOnBorrow" value="false" />
         <property name="testOnReturn" value="false" />
 
-        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <!-- 打开PSCache，并且指定每个连接上PSCache(preparedStatement)的大小 -->
         <property name="poolPreparedStatements" value="true" />
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
@@ -52,7 +55,7 @@
         <property name="filters" value="stat" />
     </bean>
 
-
+    <!--配置Mybatis工厂SqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--数据库连接池-->
         <property name="dataSource" ref="dataSource"/>

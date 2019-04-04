@@ -40,6 +40,5 @@ public class RedisTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

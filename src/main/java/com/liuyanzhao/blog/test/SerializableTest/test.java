@@ -13,69 +13,22 @@ import java.io.*;
 
 
 public class test {
-    @Test
-    public void main(){
-        File file = new File("OutFile.txt");
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-            ObjectOutputStream oos = null;
-            try {
-                oos = new ObjectOutputStream(fos);
-                Student student = new Student(1, "never");
-                System.out.println(student);
-                oos.writeObject(student);
-                oos.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }finally{
-                try {
-                    oos.close();
-                } catch (IOException e) {
-                    System.out.println("oos关闭失败："+e.getMessage());
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("找不到文件："+e.getMessage());
-        } finally{
-            try {
-                fos.close();
-            } catch (IOException e) {
-                System.out.println("fos关闭失败："+e.getMessage());
-            }
-        }
-
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-            ObjectInputStream ois = null;
-            try {
-                ois = new ObjectInputStream(fis);
-                try {
-                    Student student = (Student)ois.readObject();   //读出对象
-                    System.out.println(student);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }finally{
-                try {
-                    ois.close();
-                } catch (IOException e) {
-                    System.out.println("ois关闭失败："+e.getMessage());
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("找不到文件："+e.getMessage());
-        } finally{
-            try {
-                fis.close();
-            } catch (IOException e) {
-                System.out.println("fis关闭失败："+e.getMessage());
-            }
-        }
+//    @Test
+    public void main2() throws Exception{
+        Student student = new Student(1, "XXX");
+        System.out.println(student);
+        FileOutputStream fos = new FileOutputStream("out.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(student);
+        oos.close();
     }
-
+    @Test
+    public void main1() throws Exception{
+        ObjectInputStream ois =
+                new ObjectInputStream(
+                        new FileInputStream(new File("out.txt")));
+        Student student = (Student)ois.readObject();
+        ois.close();
+        System.out.println(student);
+    }
 }
