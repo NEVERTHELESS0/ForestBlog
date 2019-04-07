@@ -73,8 +73,7 @@
         <property name="basePackage" value="com.liuyanzhao.blog.mapper"></property>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
-
-
+    <!--where is my -->
 
     <!-- 对mybatis操作数据事务控制，spring使用jdbc的事务控制类 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
